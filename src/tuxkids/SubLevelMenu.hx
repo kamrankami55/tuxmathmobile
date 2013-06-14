@@ -110,14 +110,14 @@ private class Constant
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
 		var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
-                var starData:BitmapData = Assets.getBitmapData("assets/star.png");
+                var starData:BitmapData = Assets.getBitmapData("assets/star.png",false);
 	        var scaledStarData:BitmapData = new BitmapData(Std.int(starData.width*widthRatio),
 			Std.int(starData.height*heightRatio), true, 0x000000);
                 scaledStarData.draw(starData, matrix, null, null, true);
 		starTile = new Tilesheet(scaledStarData);
 		starTile.addTileRect( new Rectangle(0, 0, starTile.nmeBitmap.width, starTile.nmeBitmap.height));
 		//Loading empty star tile 
-                starData = Assets.getBitmapData("assets/empty_star.png");
+                starData = Assets.getBitmapData("assets/empty_star.png",false);
 	        scaledStarData = new BitmapData(Std.int(starData.width*widthRatio),
 			Std.int(starData.height*heightRatio), true, 0x000000);
                 scaledStarData.draw(starData, matrix, null, null, true);

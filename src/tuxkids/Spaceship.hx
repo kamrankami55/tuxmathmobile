@@ -56,7 +56,7 @@ class Spaceship extends Sprite
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
 		var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
-		var spaceshipData:BitmapData = Assets.getBitmapData("assets/spaceship/spaceship.png");
+		var spaceshipData:BitmapData = Assets.getBitmapData("assets/spaceship/spaceship.png",false);
 		var scaledSpaceshipData:BitmapData = new BitmapData(Std.int(spaceshipData.width*widthRatio),
 			Std.int(spaceshipData.height*heightRatio), true, 0x000000);
 		scaledSpaceshipData.draw(spaceshipData, matrix, null, null, true);	

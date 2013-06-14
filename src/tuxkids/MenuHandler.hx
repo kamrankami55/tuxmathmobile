@@ -87,7 +87,7 @@ class MenuHandler extends Sprite
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
 		var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
-		var nebulaData:BitmapData = Assets.getBitmapData("assets/background/nebula.png");
+		var nebulaData:BitmapData = Assets.getBitmapData("assets/background/nebula.png",false);
 		var scaledNebulaData:BitmapData = new BitmapData(Std.int(nebulaData.width*widthRatio),
 			Std.int(nebulaData.height*heightRatio), true, 0x000000);
 		scaledNebulaData.draw(nebulaData, matrix, null, null, true);	
@@ -108,7 +108,7 @@ class MenuHandler extends Sprite
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
 		var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
-		var galaxyData:BitmapData = Assets.getBitmapData("assets/background/galaxy.png");
+		var galaxyData:BitmapData = Assets.getBitmapData("assets/background/galaxy.png",false);
 		var scaledGalaxyData:BitmapData = new BitmapData(Std.int(galaxyData.width*widthRatio),
 			Std.int(galaxyData.height*heightRatio), true, 0x000000);
 		scaledGalaxyData.draw(galaxyData, matrix, null, null, true);	

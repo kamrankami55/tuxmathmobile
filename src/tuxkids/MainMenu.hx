@@ -79,7 +79,7 @@ class Planet extends Sprite {
                 var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
                 matrix.scale(widthRatio, heightRatio);
-		var planetData:BitmapData = Assets.getBitmapData("assets/planet/planet" + val+ ".png");
+		var planetData:BitmapData = Assets.getBitmapData("assets/planet/planet" + val+ ".png",false);
 		var scaledPlanetData:BitmapData = new BitmapData(Std.int(planetData.width*widthRatio), 
 			Std.int(planetData.height*heightRatio), true, 0x000000);
 		scaledPlanetData.draw(planetData, matrix, null, null, true);	
@@ -116,7 +116,7 @@ private class Planets extends Sprite
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
 		var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
-		var unscaledSun:BitmapData = Assets.getBitmapData("assets/planet/sun.png");
+		var unscaledSun:BitmapData = Assets.getBitmapData("assets/planet/sun.png",false);
 		var scaledSun:BitmapData = new BitmapData(Std.int(unscaledSun.width*widthRatio),
 		Std.int(unscaledSun.height*heightRatio), true, 0x000000);
 		scaledSun.draw(unscaledSun, matrix, null, null, true);
@@ -215,7 +215,7 @@ class MainMenu extends Sprite
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
                 var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
-		var overlayData:BitmapData = Assets.getBitmapData("assets/overlay/overlay_white.png");
+		var overlayData:BitmapData = Assets.getBitmapData("assets/overlay/overlay_white.png",false);
 		var scaledOverlayData:BitmapData = new BitmapData(Std.int(overlayData.width*widthRatio), 
 			Std.int(overlayData.height*heightRatio), true, 0x000000);
 		scaledOverlayData.draw(overlayData, matrix, null, null, true);	

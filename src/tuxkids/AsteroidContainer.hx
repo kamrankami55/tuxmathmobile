@@ -64,7 +64,7 @@ import tuxkids.Main;
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
 	        var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
-                var tempData:BitmapData = Assets.getBitmapData("assets/asteroid/asteroid0.png");
+                var tempData:BitmapData = Assets.getBitmapData("assets/asteroid/asteroid0.png",false);
 	        var scaledTempData:BitmapData = new BitmapData(Std.int(tempData.width*widthRatio),
 			Std.int(tempData.height*heightRatio), true, 0x000000);
                 scaledTempData.draw(tempData, matrix, null, null, true);
@@ -115,12 +115,12 @@ import tuxkids.Main;
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
 	        var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
-                var tempData:BitmapData = Assets.getBitmapData("assets/explosion/even_frame.png");
+                var tempData:BitmapData = Assets.getBitmapData("assets/explosion/even_frame.png",false);
 	        var scaledTempData:BitmapData = new BitmapData(Std.int(tempData.width*widthRatio),
 			Std.int(tempData.height*heightRatio), true, 0x000000);
                 scaledTempData.draw(tempData, matrix, null, null, true);
 		tile_even = new Tilesheet(scaledTempData);
-                tempData = Assets.getBitmapData("assets/explosion/odd_frame.png");
+                tempData = Assets.getBitmapData("assets/explosion/odd_frame.png",false);
 	        scaledTempData = new BitmapData(Std.int(tempData.width*widthRatio),
 			Std.int(tempData.height*heightRatio), true, 0x000000);
                 scaledTempData.draw(tempData, matrix, null, null, true);
@@ -172,7 +172,7 @@ class Asteroid extends Sprite {
 	public function new (path:String,initialize_text:String)
 	{
 		super();
-		tiles = new Tilesheet(Assets.getBitmapData(path));					// Initializing tilesheet object 
+		tiles = new Tilesheet(Assets.getBitmapData(path,false));					// Initializing tilesheet object 
 		asteroidBitmap = new Bitmap(tiles.nmeBitmap);						// Loading bitmap image using tilesheet object
 		drawList = new Array<Float>();										// Initializing drawlist
 		// Adding rectangles to tile 
@@ -377,7 +377,7 @@ class AsteroidContainer  extends Sprite
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
 	        var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
-                var asteroidData:BitmapData = Assets.getBitmapData("assets/asteroid/asteroid_pieces.png");
+                var asteroidData:BitmapData = Assets.getBitmapData("assets/asteroid/asteroid_pieces.png",false);
 	        var scaledAsteroidData:BitmapData = new BitmapData(Std.int(asteroidData.width*widthRatio),
 				Std.int(asteroidData.height*heightRatio), true, 0x000000);
                 scaledAsteroidData.draw(asteroidData, matrix, null, null, true);
@@ -405,7 +405,7 @@ class AsteroidContainer  extends Sprite
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
 	        var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
-                var tempData:BitmapData = Assets.getBitmapData("assets/overlay/overlay_red.png");
+                var tempData:BitmapData = Assets.getBitmapData("assets/overlay/overlay_red.png",false);
 	        var scaledTempData:BitmapData = new BitmapData(Std.int(tempData.width*widthRatio),
 			Std.int(tempData.height*heightRatio), true, 0x000000);
                 scaledTempData.draw(tempData, matrix, null, null, true);

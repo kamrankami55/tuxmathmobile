@@ -65,14 +65,14 @@ class Background extends Sprite
                 var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
 		var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
-		var cloud3Data:BitmapData = Assets.getBitmapData("assets/background/cloud3.png");
+		var cloud3Data:BitmapData = Assets.getBitmapData("assets/background/cloud3.png",false);
 		var scaledCloud3Data:BitmapData = new BitmapData(Std.int(cloud3Data.width*widthRatio),
 		    Std.int(cloud3Data.height*heightRatio), true, 0x000000);
 		scaledCloud3Data.draw(cloud3Data, matrix, null, null, true);	
 		star_cloud1 = new Bitmap(scaledCloud3Data);
 		star_cloud2 = new Bitmap();
 		star_cloud2.bitmapData = star_cloud1.bitmapData;
-		var starData:BitmapData = Assets.getBitmapData("assets/background/star.png");
+		var starData:BitmapData = Assets.getBitmapData("assets/background/star.png",false);
 		var scaledStarData:BitmapData = new BitmapData(Std.int(starData.width*widthRatio),
 		    Std.int(starData.height*heightRatio), true, 0x000000);
 		scaledStarData.draw(starData, matrix, null, null, true);	
@@ -100,14 +100,14 @@ class Background extends Sprite
 		var matrix:Matrix = new Matrix();
                 matrix.scale(widthRatio, heightRatio);
 		var nebulaData:BitmapData = Assets.getBitmapData("assets/background/nebula and fractals/galaxy_sprite_"+level+
-			".png");
+			".png",false);
 		var scaledNebulaData:BitmapData = new BitmapData(Std.int(nebulaData.width*widthRatio),
 		    Std.int(nebulaData.height*heightRatio), true, 0x000000);
 		scaledNebulaData.draw(nebulaData, matrix, null, null, true);	
 		nebula1.bitmapData = scaledNebulaData;
 		nebula1.x = Lib.current.stage.stageWidth * (0.15 + 0.25 * Math.random());
 		nebula1.y = Lib.current.stage.stageHeight * 0.1 * Math.random();
-		nebulaData = Assets.getBitmapData("assets/background/nebula and fractals/galaxy_sprite_"+(level+1)+".png");
+		nebulaData = Assets.getBitmapData("assets/background/nebula and fractals/galaxy_sprite_"+(level+1)+".png",false);
                 scaledNebulaData = new BitmapData(Std.int(nebulaData.width*widthRatio), Std.int(nebulaData.height*heightRatio),
 			true, 0x000000);
 		scaledNebulaData.draw(nebulaData, matrix, null, null, true);
@@ -118,7 +118,7 @@ class Background extends Sprite
 		limitx = -star_cloud1.width;													// Initializing limitx value.
 		// Loading clouds based on level.
 		if(level <= 2){
-		    var cData:BitmapData = Assets.getBitmapData("assets/background/cloud1.png");
+		    var cData:BitmapData = Assets.getBitmapData("assets/background/cloud1.png",false);
                     var scaledCData:BitmapData = new BitmapData(Std.int(cData.width*widthRatio), Std.int(cData.height*heightRatio),
 			true, 0x000000);
 		    scaledCData.draw(cData, matrix, null, null, true);
@@ -126,7 +126,7 @@ class Background extends Sprite
 		    star_cloud2.bitmapData = star_cloud1.bitmapData;
 		}	
 		else if(level <= 4) {
-		    var cData:BitmapData = Assets.getBitmapData("assets/background/cloud2.png");
+		    var cData:BitmapData = Assets.getBitmapData("assets/background/cloud2.png",false);
                     var scaledCData:BitmapData = new BitmapData(Std.int(cData.width*widthRatio), Std.int(cData.height*heightRatio),
 			true, 0x000000);
 		    scaledCData.draw(cData, matrix, null, null, true);
@@ -134,7 +134,7 @@ class Background extends Sprite
 		    star_cloud2.bitmapData = star_cloud1.bitmapData;
 		}	
 		else if (level <= 6) {
-		    var cData:BitmapData = Assets.getBitmapData("assets/background/cloud3.png");
+		    var cData:BitmapData = Assets.getBitmapData("assets/background/cloud3.png",false);
                     var scaledCData:BitmapData = new BitmapData(Std.int(cData.width*widthRatio), Std.int(cData.height*heightRatio),
 			true, 0x000000);
 		    scaledCData.draw(cData, matrix, null, null, true);
@@ -142,7 +142,7 @@ class Background extends Sprite
 		    star_cloud2.bitmapData = star_cloud1.bitmapData;
 		}	
 		else {
-		    var cData:BitmapData = Assets.getBitmapData("assets/background/cloud4.png");
+		    var cData:BitmapData = Assets.getBitmapData("assets/background/cloud4.png",false);
                     var scaledCData:BitmapData = new BitmapData(Std.int(cData.width*widthRatio), Std.int(cData.height*heightRatio),
 			true, 0x000000);
 		    scaledCData.draw(cData, matrix, null, null, true);
