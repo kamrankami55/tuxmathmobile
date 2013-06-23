@@ -50,7 +50,18 @@ public class Deploy{
 	static void resizeBackground(int res_width, int res_height)
 	{
 		res_height = (int) (res_width*1.0/2048 * 1536);								// maintaining aspect ratio
-
+        File theDir = new File("../assets/background");
+        // if the directory does not exist, create it
+        if (!theDir.exists())
+        {
+            System.out.println("creating directory");
+            boolean result = theDir.mkdir();
+            if(!result){
+                System.out.println("Unable to create directory");
+                System.exit(0);
+            }
+            
+        }
 		// Resizing star
 		BufferedImage img = loadImage("assets/background/star.png");    // Loading Image 
 		BufferedImage resized= Scalr.resize(img,Scalr.Method.QUALITY,            	// resizing image
@@ -81,8 +92,21 @@ public class Deploy{
 		resized= Scalr.resize(img,Scalr.Method.QUALITY,            	// resizing image
 			Scalr.Mode.AUTOMATIC,(int) (res_width*1.2),(int) (res_height*1.02));
 		resized = Scalr.crop(resized,(int) (res_width*1.2),(int) (res_height*1.02));      							// croping it 
-		saveImage("../assets/background/nebula.png",resized);   			// saving image 
+		saveImage("../assets/background/nebula.png",resized);   			// saving image
 
+        
+        theDir = new File("../assets/background/nebula and fractals");
+        // if the directory does not exist, create it
+        if (!theDir.exists())
+        {
+            System.out.println("creating directory");
+            boolean result = theDir.mkdir();
+            if(!result){
+                System.out.println("Unable to create directory");
+                System.exit(0);
+            }
+            
+        }
 		float ratio = (res_width* 1.0f)/2048;
 		// Resizing small nebula
 		for(int i=1; i<= 10;i++)
@@ -93,13 +117,37 @@ public class Deploy{
 			saveImage("../assets/background/nebula and fractals/galaxy_sprite_"+i+".png",resized);   			// saving image
 		} 
 
+        theDir = new File("../assets/background/loading");
+        // if the directory does not exist, create it
+        if (!theDir.exists())
+        {
+            System.out.println("creating directory");
+            boolean result = theDir.mkdir();
+            if(!result){
+                System.out.println("Unable to create directory");
+                System.exit(0);
+            }
+            
+        }
 		// Resizing loading screen.
-		
 		img = loadImage("assets/background/loading/loading_screen.png");    // Loading Image 
 		resized= Scalr.resize(img,Scalr.Method.ULTRA_QUALITY,            	// resizing image
 				Scalr.Mode.AUTOMATIC,(int)(img.getWidth() * ratio) , (int)(img.getHeight() * ratio)); 
 		saveImage("../assets/background/loading/loading_screen.png",resized); 
 		
+        
+        theDir = new File("../assets/overlay");
+        // if the directory does not exist, create it
+        if (!theDir.exists())
+        {
+            System.out.println("creating directory");
+            boolean result = theDir.mkdir();
+            if(!result){
+                System.out.println("Unable to create directory");
+                System.exit(0);
+            }
+            
+        }
 		// Resizing overlays
 		img = loadImage("assets/overlay/overlay_white.png");    // Loading Image 
 		resized= Scalr.resize(img,Scalr.Method.ULTRA_QUALITY,            	// resizing image
@@ -115,6 +163,18 @@ public class Deploy{
 	
 	static void credits(int res_width, int res_height)
 	{
+        File theDir = new File("../assets/credits");
+        // if the directory does not exist, create it
+        if (!theDir.exists())
+        {
+            System.out.println("creating directory");
+            boolean result = theDir.mkdir();
+            if(!result){
+                System.out.println("Unable to create directory");
+                System.exit(0);
+            }
+            
+        }
 		BufferedImage img = loadImage("assets/credits/credits.png");    // Loading Image 
 		BufferedImage resized= Scalr.resize(img,Scalr.Method.QUALITY,            	// resizing image
 			Scalr.Mode.AUTOMATIC,res_width,res_height);
@@ -123,6 +183,18 @@ public class Deploy{
 	}
 	static void resizeSpaceship(int res_width, int res_height)
 	{
+        File theDir = new File("../assets/spaceship");
+        // if the directory does not exist, create it
+        if (!theDir.exists())
+        {
+            System.out.println("creating directory");
+            boolean result = theDir.mkdir();
+            if(!result){
+                System.out.println("Unable to create directory");
+                System.exit(0);
+            }
+            
+        }
 		BufferedImage img = loadImage("assets/spaceship/spaceship.png");    		// Loading Image 
 		BufferedImage resized= Scalr.resize(img,Scalr.Method.QUALITY,            	// resizing image
 			Scalr.Mode.AUTOMATIC,(int) (res_width * 0.43) ,res_height);				// Spaceship covers 43% of screen width 
@@ -131,6 +203,18 @@ public class Deploy{
 	
 	static void resizeAsteroid(int res_width, int res_height)
 	{
+        File theDir = new File("../assets/asteroid");
+        // if the directory does not exist, create it
+        if (!theDir.exists())
+        {
+            System.out.println("creating directory");
+            boolean result = theDir.mkdir();
+            if(!result){
+                System.out.println("Unable to create directory");
+                System.exit(0);
+            }
+            
+        }
 		int x;
 		for(x=0;x<3;x++)
 		{
@@ -155,6 +239,18 @@ public class Deploy{
 	
 	static void resizeExplosion(int res_width, int res_height)
 	{
+        File theDir = new File("../assets/explosion");
+        // if the directory does not exist, create it
+        if (!theDir.exists())
+        {
+            System.out.println("creating directory");
+            boolean result = theDir.mkdir();
+            if(!result){
+                System.out.println("Unable to create directory");
+                System.exit(0);
+            }
+            
+        }
 		BufferedImage img = loadImage("assets/explosion/even_frame.png"); 		   		// Loading Image 
 		BufferedImage resized= Scalr.resize(img,Scalr.Method.QUALITY,            	// resizing image
 			Scalr.Mode.AUTOMATIC,(int)(res_height*1.172) ,((int)(res_height * 1.172)));		 
@@ -171,6 +267,18 @@ public class Deploy{
 		float ratio = (float) res_height/1536;
 		int i;
 		
+        File theDir = new File("../assets/planet");
+        // if the directory does not exist, create it
+        if (!theDir.exists())
+        {
+            System.out.println("creating directory");
+            boolean result = theDir.mkdir();
+            if(!result){
+                System.out.println("Unable to create directory");
+                System.exit(0);
+            }
+            
+        }
 		// Resizing sun
 		BufferedImage sun_img = loadImage("assets/planet/sun.png");    
 			int sun_size = (int) (sun_img.getHeight()*ratio);
