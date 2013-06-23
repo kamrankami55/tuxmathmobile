@@ -28,9 +28,24 @@ public class Deploy{
 	
 	static void saveImage(String saveas, BufferedImage resized)
 	{
+        String os = System.getProperty("os.name").toLowerCase();
+        System.out.println("Resizing: "+saveas);
 		try{
-			File outfile = new File(saveas);
-			ImageIO.write(resized,"png",outfile);
+            if(os.indexOf("mac") >= 0){
+                File outfile = new File("mac/temp.png");
+                ImageIO.write(resized,"png",outfile);
+                Process p=Runtime.getRuntime().exec("mac/pngquant mac/temp.png");
+                p.waitFor();
+                File afile =new File("mac/temp-fs8.png");
+                if(!afile.renameTo(new File(saveas))){
+                    System.out.println("Unable to save Image");
+                }
+                outfile.delete();
+            }
+            else{
+                File outfile = new File(saveas);
+                ImageIO.write(resized,"png",outfile);
+            }
 		}
 		catch( Exception ex){
 			System.out.println("Unable to save resized Image");
