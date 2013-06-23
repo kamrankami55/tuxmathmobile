@@ -75,15 +75,8 @@ class Planet extends Sprite {
 	{
 		super();
 		// Adding planets
-		var matrix:Matrix = new Matrix();
-                var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-                matrix.scale(widthRatio, heightRatio);
-		var planetData:BitmapData = Assets.getBitmapData("assets/planet/planet" + val+ ".png",false);
-		var scaledPlanetData:BitmapData = new BitmapData(Std.int(planetData.width*widthRatio), 
-			Std.int(planetData.height*heightRatio), true, 0x000000);
-		scaledPlanetData.draw(planetData, matrix, null, null, true);	
-		tileplanet = new Tilesheet(scaledPlanetData);
+		var ratio:Float = GameConstant.stageHeight/1536;	
+		tileplanet = new Tilesheet(Image.resizeRelativeToImageDimension("assets/planet/planet" + val+ ".png",ratio));
 		tileplanet.addTileRect(new Rectangle(0, 0, tileplanet.nmeBitmap.width, tileplanet.nmeBitmap.height));
 		tileplanet.drawTiles(graphics, [0, 0, 0]);
 		value = val;
@@ -112,15 +105,8 @@ private class Planets extends Sprite
 		var distance:Int = cast GameConstant.stageWidth / 4;
 		x_scale = 0;                              						 // For keeping tab on x dimension of sprite 
 		// First displaying sun
-                var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-		var matrix:Matrix = new Matrix();
-                matrix.scale(widthRatio, heightRatio);
-		var unscaledSun:BitmapData = Assets.getBitmapData("assets/planet/sun.png",false);
-		var scaledSun:BitmapData = new BitmapData(Std.int(unscaledSun.width*widthRatio),
-		Std.int(unscaledSun.height*heightRatio), true, 0x000000);
-		scaledSun.draw(unscaledSun, matrix, null, null, true);
-                var sun:Bitmap = new Bitmap(scaledSun);
+		var ratio:Float = GameConstant.stageHeight/1536;
+        var sun:Bitmap = new Bitmap(Image.resizeRelativeToImageDimension("assets/planet/sun.png",ratio));
 		x_scale = cast sun.width;
 		sun.x = 0;
 		sun.y = (GameConstant.stageHeight - sun.height) / 2;
@@ -210,16 +196,8 @@ class MainMenu extends Sprite
 			velocity =  (stop_x - start_x) / GameConstant.stageWidth / (stop_time - start_time) * 25000 ;
 			this.addEventListener(Event.ENTER_FRAME, startMove);
 		});
-		
-                var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-                var matrix:Matrix = new Matrix();
-                matrix.scale(widthRatio, heightRatio);
-		var overlayData:BitmapData = Assets.getBitmapData("assets/overlay/overlay_white.png",false);
-		var scaledOverlayData:BitmapData = new BitmapData(Std.int(overlayData.width*widthRatio), 
-			Std.int(overlayData.height*heightRatio), true, 0x000000);
-		scaledOverlayData.draw(overlayData, matrix, null, null, true);	
-		information_overlay = new Bitmap(scaledOverlayData);
+			
+		information_overlay = new Bitmap(Image.resize("assets/overlay/overlay_white.png",1));
 		addChild(information_overlay);
 		addChild(planets);
 		information_sprite = new Sprite();

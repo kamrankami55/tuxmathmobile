@@ -82,16 +82,8 @@ class MenuHandler extends Sprite
 	public function new() 
 	{
 		super();
-		// Loading background image.
-                var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-		var matrix:Matrix = new Matrix();
-                matrix.scale(widthRatio, heightRatio);
-		var nebulaData:BitmapData = Assets.getBitmapData("assets/background/nebula.png",false);
-		var scaledNebulaData:BitmapData = new BitmapData(Std.int(nebulaData.width*widthRatio),
-			Std.int(nebulaData.height*heightRatio), true, 0x000000);
-		scaledNebulaData.draw(nebulaData, matrix, null, null, true);	
-		background_nebula_image = new Bitmap(scaledNebulaData);
+		// Loading background image.	
+		background_nebula_image = new Bitmap(Image.resize("assets/background/nebula.png",1.02));
 		addChild(background_nebula_image);
 		galaxy_sprite = new Sprite();
 		addChild(galaxy_sprite);
@@ -103,16 +95,8 @@ class MenuHandler extends Sprite
 		nebula_gradient.x = (background_nebula_image.width - GameConstant.stageWidth) / (main_menu_screen.planets.width - GameConstant.stageWidth/2);
 		nebula_gradient.y = (background_nebula_image.height - GameConstant.stageHeight) / (main_menu_screen.planets.width - GameConstant.stageWidth/2);
 		   
-		// Galaxy image
-                var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-		var matrix:Matrix = new Matrix();
-                matrix.scale(widthRatio, heightRatio);
-		var galaxyData:BitmapData = Assets.getBitmapData("assets/background/galaxy.png",false);
-		var scaledGalaxyData:BitmapData = new BitmapData(Std.int(galaxyData.width*widthRatio),
-			Std.int(galaxyData.height*heightRatio), true, 0x000000);
-		scaledGalaxyData.draw(galaxyData, matrix, null, null, true);	
-		galaxy = new Tilesheet(scaledGalaxyData);
+		// Galaxy image	
+		galaxy = new Tilesheet(Image.resize("assets/background/galaxy.png",1));
 		galaxy.addTileRect(new Rectangle(0, 0, galaxy.nmeBitmap.width, galaxy.nmeBitmap.height));
 		galaxy_gradient = -(1 / (main_menu_screen.planets.width - GameConstant.stageWidth/2)) * 0.75;
 		

@@ -60,8 +60,6 @@ class Main
 	static var quit:Sprite;			// Quit button
 	static var credits:Sprite;			// Credits button 
 	static var loading_screen_sprite:Sprite;	//loading screen sprite 
-        public inline static var ASSETS_WIDTH:Int = 2048;    // Assets are generated using this as device width
-        public inline static var ASSETS_HEIGHT:Int = 1536;   // Assets are generated using this as device height
 
 	/**
 	 * Function for handling back button.
@@ -241,16 +239,7 @@ class Main
 		// Adding and removing credit sprite 
 		credits.addEventListener(MouseEvent.CLICK, function(ev:Event) {
 			var credit:Sprite = new Sprite();
-                        var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                        var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-		        var matrix:Matrix = new Matrix();
-                        matrix.scale(widthRatio, heightRatio);
-                        var creditData:BitmapData = Assets.getBitmapData("assets/credits/credits.png",false);
-	        	var scaledCreditData:BitmapData = new BitmapData(Std.int(creditData.width*widthRatio),
-				Std.int(creditData.height*heightRatio), true, 0x000000);
-                	scaledCreditData.draw(creditData, matrix, null, null, true);
-			var credit_image:Bitmap = new Bitmap(scaledCreditData);    //Loading images
-			credit.addChild(credit_image);
+			credit.addChild(new Bitmap(Image.resize("assets/credits/credits.png",1)));
 			credit.addEventListener(MouseEvent.CLICK, function(ev:Event) {
 				Lib.current.removeChild(credit);
 			});
@@ -281,12 +270,12 @@ class Main
 		var stage = Lib.current.stage;
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.align = StageAlign.TOP_LEFT;
+		GameConstant.initialize();
 		// Initializing loading screen sprite.
 		loading_screen_sprite = new Sprite();
 		// Loading load screen.
 		loading_screen(1);			
 		Timer.delay(function() {
-			GameConstant.initialize();
 			Transition.intialize();
 			var rectangle:Shape = new Shape(); // initializing variable named rectangles
 			// Initializing game variable.
@@ -329,24 +318,15 @@ class Main
 		case 1:	
 		    trace("width: "+Lib.current.stage.stageWidth);	
 		    trace("height: "+Lib.current.stage.stageHeight);	
-                    var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                    var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-		    var matrix:Matrix = new Matrix();
-                    matrix.scale(widthRatio, heightRatio);
-		    var loadingBitmap:BitmapData = Assets.getBitmapData
-			("assets/background/loading/loading_screen.png",false);
-		    var scaledLoadingBitmap:BitmapData = new BitmapData(Std.int(loadingBitmap.width*widthRatio),
-			Std.int(loadingBitmap.height*heightRatio), true, 0x000000);
-		    scaledLoadingBitmap.draw(loadingBitmap, matrix, null, null, true);	
-		    loading_screen_sprite.addChild(new Bitmap(scaledLoadingBitmap));
+		    loading_screen_sprite.addChild(new Bitmap(Image.resize("assets/background/loading/loading_screen.png",1)));
 		    Lib.current.addChild(loading_screen_sprite);
 		    loading_screen_sprite.addEventListener(MouseEvent.MOUSE_MOVE, function(param:Event) {
-			param.stopImmediatePropagation();
+				param.stopImmediatePropagation();
 		    });
 		case 0:
 		    Actuate.tween(loading_screen_sprite, 2, { alpha:0 } ).onComplete(function() {	
-			Lib.current.removeChild(loading_screen_sprite);
-			loading_screen_sprite = null;
+				Lib.current.removeChild(loading_screen_sprite);
+				loading_screen_sprite = null;
 		    });
 	    }
 	}

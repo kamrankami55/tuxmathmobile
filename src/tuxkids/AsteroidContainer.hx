@@ -38,6 +38,7 @@ import nme.geom.Rectangle;
 import nme.feedback.Haptic;
 import com.eclecticdesignstudio.motion.Actuate;
 import tuxkids.Main;
+import tuxkids.Image;
 
 /**
  * ...
@@ -47,7 +48,7 @@ import tuxkids.Main;
  class AsteroidConstant
  {
 	public static var dimension:Float;													// Dimension of each side of the cell of matrix.
-	public static var matrix_dimesion:Int;                                              // Dimension of square matrix in which it will be broken.
+	public static var matrix_dimension:Int;                                              // Dimension of square matrix in which it will be broken.
 	public static var updateListCenter:Array<Float>;									// Used for updating asteroid pieces when exploded from the center.
 	public static var updateListFront:Array<Float>;										// Used for updating asteroid pieces when exploded from the front.
 	public static var total_values ;													// Total in no frames in a explosion bitmap (total_values X total_values)  in one even or odd bitmap of frame.
@@ -58,18 +59,10 @@ import tuxkids.Main;
 	public static var tile_position:Float;												// Position of the tile that is to be blit (x,y) for showing explosion effect 
 	public static function initialize()
 	{
-		
-		matrix_dimesion = 20 + cast (GameConstant.stageWidth*20/2048);                                       					// Asteroid will be divided into 20X20 matrix and more depending upon screen resolution.
-                var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-	        var matrix:Matrix = new Matrix();
-                matrix.scale(widthRatio, heightRatio);
-                var tempData:BitmapData = Assets.getBitmapData("assets/asteroid/asteroid0.png",false);
-	        var scaledTempData:BitmapData = new BitmapData(Std.int(tempData.width*widthRatio),
-			Std.int(tempData.height*heightRatio), true, 0x000000);
-                scaledTempData.draw(tempData, matrix, null, null, true);
-		var temp:BitmapData = scaledTempData;	// Loading asteroid image so that we can pre calculate all variables 
-		dimension = temp.width / matrix_dimesion;										// Dimension of individual cell side
+		trace("matrix dimension"+matrix_dimension);
+		matrix_dimension = 20 + cast (GameConstant.stageWidth*20/2048);                                       					// Asteroid will be divided into 20X20 matrix and more depending upon screen resolution.
+		var temp:BitmapData = Image.resizeToDimension("assets/asteroid/asteroid0.png",GameConstant.stageHeight/3,GameConstant.stageHeight/3);	// Loading asteroid image so that we can pre calculate all variables 
+		dimension = temp.width / matrix_dimension;										// Dimension of individual cell side
 		updateListCenter = new Array<Float>();											// Initialing arrays
 		updateListFront = new Array<Float>();
 		FRONT_EXPLOSION = 0;															// Used for indicate whether to explode from the center or front
@@ -82,13 +75,13 @@ import tuxkids.Main;
 		var distance;
 		total_values = 4;
 		// Explosion from center
-		for (y in 0...matrix_dimesion)
-			for (x in 0...matrix_dimesion)
+		for (y in 0...matrix_dimension)
+			for (x in 0...matrix_dimension)
 			{
 				vx = cast (x * dimension - center);										
 				vy = cast (y * dimension - center);										
 				distance = cast Math.sqrt(vx * vx + vy * vy);							//Calculating distance from the center
-				index = (y * matrix_dimesion + x) * total_values;
+				index = (y * matrix_dimension + x) * total_values;
 				// Taking 480 X 320 resolution as reference
 				updateListCenter[index] = (Math.random() + 0.1) * vx / distance * GameConstant.stageWidth / 480;
 				updateListCenter[index + 1] = (Math.random() + 0.1) * vy / distance * GameConstant.stageHeight / 320;
@@ -96,13 +89,13 @@ import tuxkids.Main;
 				updateListCenter[index + 3] = Math.random() * 0.04;
 			}
 		// Explosion from front	
-		for (y in 0...matrix_dimesion)
-			for (x in 0...matrix_dimesion)
+		for (y in 0...matrix_dimension)
+			for (x in 0...matrix_dimension)
 			{
 				vx = cast x * dimension;
 				vy = cast y * dimension - center;
 				distance = cast Math.sqrt(vx * vx + vy * vy);
-				index = (y * matrix_dimesion + x) * total_values;
+				index = (y * matrix_dimension + x) * total_values;
 				// Taking 480 X 320 as reference
 				updateListFront[index] = (Math.random() - 0.3) * (temp.width - vx) / distance * GameConstant.stageWidth / 480;
 				updateListFront[index + 1] = (Math.random() - 0.1) * vy / distance * GameConstant.stageHeight / 320;
@@ -111,20 +104,9 @@ import tuxkids.Main;
 			}
 			
 		// Loading bitmap sprites into tilesheet 
-                var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-	        var matrix:Matrix = new Matrix();
-                matrix.scale(widthRatio, heightRatio);
-                var tempData:BitmapData = Assets.getBitmapData("assets/explosion/even_frame.png",false);
-	        var scaledTempData:BitmapData = new BitmapData(Std.int(tempData.width*widthRatio),
-			Std.int(tempData.height*heightRatio), true, 0x000000);
-                scaledTempData.draw(tempData, matrix, null, null, true);
-		tile_even = new Tilesheet(scaledTempData);
-                tempData = Assets.getBitmapData("assets/explosion/odd_frame.png",false);
-	        scaledTempData = new BitmapData(Std.int(tempData.width*widthRatio),
-			Std.int(tempData.height*heightRatio), true, 0x000000);
-                scaledTempData.draw(tempData, matrix, null, null, true);
-		tile_odd = new Tilesheet(scaledTempData);
+        var size:Float = GameConstant.stageHeight *1.172;
+		tile_even = new Tilesheet(Image.resizeToDimension("assets/explosion/even_frame.png",size,size));
+		tile_odd = new Tilesheet(Image.resizeToDimension("assets/explosion/odd_frame.png",size,size));
 		// Dimension of each frame
 		var dimension = tile_even.nmeBitmap.width / 4;						
 		// Initializing frames 
@@ -172,12 +154,12 @@ class Asteroid extends Sprite {
 	public function new (path:String,initialize_text:String)
 	{
 		super();
-		tiles = new Tilesheet(Assets.getBitmapData(path,false));					// Initializing tilesheet object 
+		tiles = new Tilesheet(Image.resizeToDimension(path,GameConstant.stageHeight/3,GameConstant.stageHeight/3));					// Initializing tilesheet object 
 		asteroidBitmap = new Bitmap(tiles.nmeBitmap);						// Loading bitmap image using tilesheet object
 		drawList = new Array<Float>();										// Initializing drawlist
 		// Adding rectangles to tile 
-		for (y in 0...AsteroidConstant.matrix_dimesion)
-			for (x in 0...AsteroidConstant.matrix_dimesion)
+		for (y in 0...AsteroidConstant.matrix_dimension)
+			for (x in 0...AsteroidConstant.matrix_dimension)
 			{
 				tiles.addTileRect(new Rectangle(x * AsteroidConstant.dimension, y * AsteroidConstant.dimension,AsteroidConstant.dimension,AsteroidConstant.dimension));
 			}
@@ -230,10 +212,10 @@ class Asteroid extends Sprite {
 		active = false;								// Inactive by default
 		exploding = false;
 		// Initial state of cells of bitmap
-		for (y in 0...AsteroidConstant.matrix_dimesion)
-			for (x in 0...AsteroidConstant.matrix_dimesion)
+		for (y in 0...AsteroidConstant.matrix_dimension)
+			for (x in 0...AsteroidConstant.matrix_dimension)
 			{
-				index = (y * AsteroidConstant.matrix_dimesion + x) * AsteroidConstant.total_values;
+				index = (y * AsteroidConstant.matrix_dimension + x) * AsteroidConstant.total_values;
 				drawList[index] = x * AsteroidConstant.dimension;
 				drawList[index + 1] = y * AsteroidConstant.dimension;
 				drawList[index + 2] = index / AsteroidConstant.total_values;
@@ -253,7 +235,7 @@ class Asteroid extends Sprite {
 	{
 		exploding = true;														// Asteroid is exploding
 		removeChild(asteroidBitmap);											// Removing bitmap so that animation is visible
-		removeChild(text);														// Reving text
+		removeChild(text);														// Removing text
 		switch(type)
 		{
 			case AsteroidConstant.CENTER_EXPLOSION : updateList = AsteroidConstant.updateListCenter;
@@ -373,15 +355,7 @@ class AsteroidContainer  extends Sprite
 		asteroid_pieces_sprite  = new Sprite();
 		addChild(asteroid_pieces_sprite);
 		// Initializing asteroid_pieces_tile for blitting 
-                var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-	        var matrix:Matrix = new Matrix();
-                matrix.scale(widthRatio, heightRatio);
-                var asteroidData:BitmapData = Assets.getBitmapData("assets/asteroid/asteroid_pieces.png",false);
-	        var scaledAsteroidData:BitmapData = new BitmapData(Std.int(asteroidData.width*widthRatio),
-				Std.int(asteroidData.height*heightRatio), true, 0x000000);
-                scaledAsteroidData.draw(asteroidData, matrix, null, null, true);
-		asteroid_pieces_tile = new Tilesheet(scaledAsteroidData);
+		asteroid_pieces_tile = new Tilesheet(Image.resizeRelativeToImageDimension("assets/asteroid/asteroid_pieces.png",GameConstant.stageHeight/1536 * 0.9));
 		asteroid_piece_dimension = asteroid_pieces_tile.nmeBitmap.width / 4;
 		for (y in 0...4)
 			for (x in 0...4)
@@ -401,15 +375,7 @@ class AsteroidContainer  extends Sprite
 		
 		// Initializing warning variables 
 		showing_warning = false;
-                var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-	        var matrix:Matrix = new Matrix();
-                matrix.scale(widthRatio, heightRatio);
-                var tempData:BitmapData = Assets.getBitmapData("assets/overlay/overlay_red.png",false);
-	        var scaledTempData:BitmapData = new BitmapData(Std.int(tempData.width*widthRatio),
-			Std.int(tempData.height*heightRatio), true, 0x000000);
-                scaledTempData.draw(tempData, matrix, null, null, true);
-		warning_overlay = new Bitmap(scaledTempData);
+		warning_overlay = new Bitmap(Image.resize("assets/overlay/overlay_red.png",1));
 		warning_overlay.alpha = 0;
 		addChild(warning_overlay);
 		warning_sound = Assets.getSound("assets/sounds/warning.mp3");

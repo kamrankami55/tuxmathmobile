@@ -105,23 +105,12 @@ private class Constant
 			{
 				scale = textSize / text.textHeight;				
 			}
-		// Loading star tile	
-                var widthRatio:Float = Lib.current.stage.stageWidth/Main.ASSETS_WIDTH;
-                var heightRatio:Float = Lib.current.stage.stageHeight/Main.ASSETS_HEIGHT;
-		var matrix:Matrix = new Matrix();
-                matrix.scale(widthRatio, heightRatio);
-                var starData:BitmapData = Assets.getBitmapData("assets/star.png",false);
-	        var scaledStarData:BitmapData = new BitmapData(Std.int(starData.width*widthRatio),
-			Std.int(starData.height*heightRatio), true, 0x000000);
-                scaledStarData.draw(starData, matrix, null, null, true);
-		starTile = new Tilesheet(scaledStarData);
+		// Loading star tile       
+        var star_size:Float = GameConstant.stageHeight * 0.056; 
+		starTile = new Tilesheet(Image.resizeToDimension("assets/star.png",star_size,star_size));
 		starTile.addTileRect( new Rectangle(0, 0, starTile.nmeBitmap.width, starTile.nmeBitmap.height));
 		//Loading empty star tile 
-                starData = Assets.getBitmapData("assets/empty_star.png",false);
-	        scaledStarData = new BitmapData(Std.int(starData.width*widthRatio),
-			Std.int(starData.height*heightRatio), true, 0x000000);
-                scaledStarData.draw(starData, matrix, null, null, true);
-		empty_starTile = new Tilesheet(scaledStarData);
+		empty_starTile = new Tilesheet(Image.resizeToDimension("assets/empty_star.png",star_size,star_size));
 		empty_starTile.addTileRect( new Rectangle(0, 0, empty_starTile.nmeBitmap.width, empty_starTile.nmeBitmap.height));
 		
 		angle_per_pixel = 0.5 * 480 / GameConstant.stageWidth;       // Taking 480 X 320 as a reference 
