@@ -42,6 +42,18 @@ public class Deploy{
                 }
                 outfile.delete();
             }
+            else
+                if(os.indexOf("win") >= 0){
+                    File outfile = new File("window/temp.png");
+                    ImageIO.write(resized,"png",outfile);
+                    Process p=Runtime.getRuntime().exec("window/pngquant window/temp.png");
+                    p.waitFor();
+                    File afile =new File("window/temp-fs8.png");
+                    if(!afile.renameTo(new File(saveas))){
+                        System.out.println("Unable to save Image");
+                    }
+                    outfile.delete();
+                }
             else{
                 File outfile = new File(saveas);
                 ImageIO.write(resized,"png",outfile);
