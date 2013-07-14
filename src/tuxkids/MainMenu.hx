@@ -185,7 +185,7 @@ class MainMenu extends Sprite
 			stop_time = Lib.getTimer();
 			stop_x = ev.target.mouseX;
 			// Calculating velocity of sprite 
-			velocity =  (stop_x - start_x) / GameConstant.stageWidth / (stop_time - start_time) * 25000 ;
+			velocity =  (stop_x - start_x) / GameConstant.stageWidth / (stop_time - start_time) * 25000 *(GameConstant.stageWidth/400) ;
 			this.addEventListener(Event.ENTER_FRAME, startMove);
 		}); 
 		addEventListener(MouseEvent.MOUSE_OUT, function(ev:MouseEvent) {
@@ -193,7 +193,7 @@ class MainMenu extends Sprite
 			stop_time = Lib.getTimer();
 			stop_x = ev.target.mouseX;
 			// Calculating velocity of sprite 
-			velocity =  (stop_x - start_x) / GameConstant.stageWidth / (stop_time - start_time) * 25000 ;
+			velocity =  (stop_x - start_x) / GameConstant.stageWidth / (stop_time - start_time) * 25000 *(GameConstant.stageWidth/400);
 			this.addEventListener(Event.ENTER_FRAME, startMove);
 		});
 			
